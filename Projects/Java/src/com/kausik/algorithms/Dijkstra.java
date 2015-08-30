@@ -1,3 +1,9 @@
+
+/*
+ * All rights reserved. Not for use without explicit permission from author. 
+ * Author is not responsible for loss in terms of data or otherwise and is not liable for any damage due to the usage of this software.
+ * contact kausikp at github in case of any questions
+ */
 package com.kausik.algorithms;
 
 import java.util.ArrayList;
