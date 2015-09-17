@@ -83,7 +83,7 @@ public class Dijkstra
 		for (int index=0; index<currentNode.neighbours.size(); index++)
 		{
 			String neighbour = currentNode.neighbours.get(index);
-			Node neighbourNode = nodes.get(Integer.parseInt(neighbour.substring(1)) - 1);
+			//Node neighbourNode = nodes.get(Integer.parseInt(neighbour.substring(1)) - 1);
 			int currentTentativeDistance = distMap.get(neighbour);
 			int actual = distMap.get(node.name) + currentNode.distance.get(index);
 			if (actual < currentTentativeDistance)
