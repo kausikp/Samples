@@ -1,5 +1,9 @@
 package com.kausik.algorithms;
-
+/*
+ * All rights reserved. Not for use without explicit permission from author. 
+ * Author is not responsible for loss in terms of data or otherwise and is not liable for any damage due to the usage of this software.
+ * contact kausikp at github in case of any questions
+ */
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,15 +18,43 @@ public class DFS
 {
 	public void performDepthFirstSearch(File inputFile)
 	{
-		
+		try
+		{
+			Map<String, Node> nodeMap = prepGraphFromFile(inputFile);
+			// Get the first node
+			String currentNodeName = "D";
+			Node node = nodeMap.get(currentNodeName);
+			visitNeighboursInTree(node);
+		}
+		catch (IOException e)
+		{
+			System.out.println("No input file provided");
+			e.printStackTrace();
+		}
+
 	}
-	
-	private List<Node> prepGraphFromFile(File inputFile) throws IOException
+
+	private void visitNeighboursInTree(Node node)
 	{
-		Map<String,Node> graph = new HashMap<String,Node>();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
+		if (node != null && !node.isVisited)
+		{
+			System.out.println(node.name);
+			node.isVisited=true;
+			for (Node n : node.neighbours)
+			{
+				visitNeighboursInTree(n);
+			}
+		}
+	}
+
+	private Map<String, Node> prepGraphFromFile(File inputFile)
+			throws IOException
+	{
+		Map<String, Node> graph = new HashMap<String, Node>();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+				new FileInputStream(inputFile)));
 		String line;
-		while((line = reader.readLine()) != null)
+		while ((line = reader.readLine()) != null)
 		{
 			String[] tokens = line.split(":");
 			String nodeName = tokens[0];
@@ -30,7 +62,7 @@ public class DFS
 			Node node = new Node();
 			node = graph.get(nodeName);
 			if (node == null)
-			{				
+			{
 				node = new Node();
 				node.name = nodeName;
 			}
@@ -48,16 +80,16 @@ public class DFS
 			}
 			graph.put(nodeName, node);
 		}
-		return new ArrayList<Node>(graph.values());
+		reader.close();
+		return graph;
 	}
-	
-	
 
 	private class Node
 	{
 		String name;
 		List<Node> neighbours = new ArrayList<Node>();
-		boolean isVisited=false;
+		boolean isVisited = false;
+
 		@Override
 		public String toString()
 		{
@@ -71,18 +103,12 @@ public class DFS
 			return ret.toString();
 		}
 	}
+
 	public static void main(String[] args)
 	{
 		DFS dfs = new DFS();
-		try
-		{
-			List<Node> nodes = dfs.prepGraphFromFile(new File("resources/dfs.txt"));
-			System.out.println(nodes);
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		// output should be ABSCDEHGF for the sample
+		dfs.performDepthFirstSearch(new File("resources/dfs.txt"));
 	}
 
 }
