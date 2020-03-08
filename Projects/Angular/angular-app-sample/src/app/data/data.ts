@@ -1,0 +1,1 @@
+export const ITEMS = ["item1", "item2"]
