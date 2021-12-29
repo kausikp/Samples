@@ -1,0 +1,1 @@
+This is for personal use only and not to be used by anyone for any purposes unless explicit permission is provided by author.
